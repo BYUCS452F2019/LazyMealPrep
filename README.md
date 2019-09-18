@@ -18,6 +18,10 @@ We need a nice and easy ui to be able to input recipes and display them for usag
 
 This will be the core part of the functionality because it provides the most benefit to those of us that are extremely lazy, but want to plan out meals. Based off of how often the user wishes to go grocery shopping we will generate a shopping list for them and automatically add it to their pickup cart. This will aid in the speed of shopping and will reduce the possibility of going off of the plan because you never even go into the store.
 
+## Databases
+
+We will be using Postgres for the relational database and Redis for the NoSQL (these are still flexible).
+
 
 # Business
 

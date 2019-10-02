@@ -1,0 +1,23 @@
+accounts(id, username, email, store_id)
+	This table holds all necessary account information.
+
+ingredients(id, name)
+	This table might be superfluous, but would contain the names
+	of ingredients and an associated ID.
+
+recipes(id, name, public, account_id)
+	Foreign Key account_id references accounts.id
+	This contains the name and public status of recipes.
+
+recipe_ingredients(id, recipe_id, ingredient_id, amount, unit)
+	Foreign Key recipe_id references recipes.id
+	Foreign Key ingredient_id
+	This contains the individual ingredients to be used in a 
+	specific recipe.
+
+calendar(id, date, meal, recipe_id, account_id)
+	Foreign Key recipe_id references recipes.id
+	Foreign Key account_id references accounts.id
+	This contains association between a particular
+	date and meal and the recipe(s) assigned to that
+	date and meal.

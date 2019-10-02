@@ -1,4 +1,4 @@
-accounts(id, username, email, store_id)
+accounts(id, username, email, password, store_id)
 	This table holds all necessary account information.
 
 ingredients(id, name)

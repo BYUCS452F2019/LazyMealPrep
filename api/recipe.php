@@ -3,7 +3,7 @@
 //Post new recipes new(account_id, name, public, json array of ingredients)
 //Post Update recipe update(recipe_id, name, public, account_id)
 //Delete Recipe delete(recipe_id, account_id)
-//Get specific recipe get_one(recipe_id, account_id)
+//Get specific recipe (and ingredients) get_one(recipe_id, account_id)
 //Get recipes available to account get_all(account_id)
 
 
@@ -111,8 +111,16 @@ SQL;
                 $query = <<<SQL
 SELECT * from recipe where id = ? and (account_id = ? or public = TRUE);
 SQL;
+                $conn->beingTransaction();
                 $stmt = $conn->prepare($query, [$_POST['recipe_id'], $_POST['account_id']]);
                 $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $recipe_query = <<<SQL
+SELECT * FROM recipe_ingredient WHERE recipe_id = ?;
+SQL;
+                $stmt = $conn->prepare($recipe_query, [$_POST['recipe_id']]);
+                $ingredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $conn->commit();
+                $recipe['ingredients'] = $ingredients;
                 $json = json_encode($recipe);
                 echo $json;
             }

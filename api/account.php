@@ -1,8 +1,7 @@
 <?php
-//Post New account requires password, email, username
-//Post Login attempt
-//Post New password request? (Maybe if we have time)
-//Post Delete Account
+//Post New account (password, email, username)
+//Post Login attempt (password, username)
+//Post Delete Account (username, password)
 
 $conn = new DbConnection();
 

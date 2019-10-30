@@ -21,9 +21,16 @@ class DbConnection
         }
     }
 
-    public function prepare($string, $arr){
+    public function prepare($string, $arr = []){
         return $this->PDO->prepare($string, $arr);
     }
 
+    public function beingTransaction(){
+        return $this->PDO->beginTransaction();
+    }
+
+    public function commit(){
+        return $this->PDO->commit();
+    }
 
 }

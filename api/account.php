@@ -1,4 +1,7 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+
+
 //Post New account (password, email, username)
 //Post Login attempt (password, username)
 //Post Delete Account (username, password)

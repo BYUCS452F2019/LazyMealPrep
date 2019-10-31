@@ -1,5 +1,7 @@
 <?php
 
+header("Access-Control-Allow-Origin: *");
+
 //Post new recipes new(account_id, name, public, json array of ingredients)
 //Post Update recipe update(recipe_id, name, public, account_id)
 //Delete Recipe delete(recipe_id, account_id)

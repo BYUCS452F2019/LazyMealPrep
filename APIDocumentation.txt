@@ -1,0 +1,176 @@
+header("Access-Control-Allow-Origin: *");
+
+1 POST, new account, api/account.php
+    {
+      method: 'POST'
+      type: 'new'
+      username: string
+      email: string
+      password: string
+    }
+  Response:
+    On success:
+    {
+      accountID: string
+    }
+    On failure:
+    {
+      <anything that does not include accountID, including empty>
+    }
+
+
+
+2 POST, login, api/account.php
+    {
+      method: 'POST'
+      type: 'login'
+      username: string
+      password: string
+    }
+  Response:
+    On success:
+    {
+      accountID: string
+    }
+    On failure:
+    {
+      <anything that does not include accountID, including empty>
+    }
+
+
+
+3 POST, delete account, api/account.php
+    {
+      method: 'POST'
+      type: 'delete'
+      username: string
+      accountID: string <to verify it's the right user logged in, but probably not necessary for MVP>
+    }
+  Response:
+    On success:
+    {
+      status: 'success'
+    }
+    On failure:
+    {
+      <anything else>
+    }
+
+
+
+4 POST, new recipe, api/recipe.php
+    {
+      method: 'POST'
+      type: 'new'
+      name: string <recipe's name>
+      accountID: string <to link to correct account>
+      ingredients: [ <array of undetermined size, might be empty but will be present, each element contains:>
+          {
+            name: string <name of ingredient>
+            amount: string
+            unit: string
+          }
+        ]
+    }
+  Response:
+    On success:
+      {
+        recipeID: string
+      }
+    On failure:
+      {
+        <anything else, NOT including recipeID>
+      }
+
+
+
+5 POST, delete recipe, api/recipe.php
+    {
+      method: 'POST'
+      type: 'delete'
+      name: string <target recipe's name>
+      accountID: string <again, probably not necessary for the MVP, but a security measure>
+    }
+  Response:
+    On success:
+      {
+        status: 'success'
+      }
+    On failure:
+      {
+        <anything else>
+      }
+
+
+
+6 GET, get all user recipes, api/recipe.php
+    {
+      method: 'GET'
+      type: 'all'
+      accountID: string <to identify the proper account>
+    }
+  Response:
+    On success:
+      {
+        recipes: [
+          {
+            recipeID: string
+            accountID: string
+            name: string <name of the recipe>
+            public: true/false
+          }
+        ]
+      }
+    On failure:
+      {
+        <anything, but "recipes" key/value does not exist in the response>
+      }
+
+
+
+7 GET, get one recipe, api/recipe.php
+    {
+      method: 'GET'
+      type: 'one'
+      recipeID: string
+      accountID: string
+    }
+  Response:
+    On success:
+      {
+        recipeID: string
+        accountID: string
+        name: string <name of the recipe>
+        public: true/false
+        ingredients: [
+          {
+            name: string <name of ingredient>
+            ingredientID: string
+            amount: string
+            unit: string
+          }
+        ]
+      }
+    On failure:
+      {
+        <anything, as long as it's missing any of the five key/value pairs>
+      }
+
+
+
+8 POST, delete recipe ingredient, api/ingredient.php
+    {
+      method: 'POST'
+      type: 'delete'
+      recipeIngredientID: string
+      accountID: string
+    }
+  Response:
+    On success:
+      {
+        status: 'success'
+      }
+    On failure:
+      {
+        <anything else>
+      }

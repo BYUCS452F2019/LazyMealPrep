@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<!--persistent header with logged in or not, and lists accountid, also display switch here-->
+
+<head>
+  <meta charset="utf-8" />
+  <title>Database Interface - Lazy Meal Prep</title>
+  <link rel="stylesheet" type= "text/css" href="styles.css">
+</head>
+
+<body>
+  <div id="header">
+    <nobr><input id="sampleSwitch" type="checkbox">Use Sample Response Values   </input><div id="isLogged"></div><div>   AccountID = </div><div id="accountIDDisplay"></div></nobr>
+  </div>
+  <br><br><br><br>
+
+  <!--POST new account-->
+  <label id="input">Username: </label>
+  <input id="postNewAccountInputUsername" type="text"></input>
+  <label id="input"> Password: </label>
+  <input id="postNewAccountInputPassword" type="text"></input>
+  <label id="input"> Email: </label>
+  <input id="postNewAccountInputEmail" type="text"></input> <br>
+  <input id="postNewAccountButton" type="button" value="POST New Account"></input><br>
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>AccountID</th>
+    </tr>
+    <tr>
+      <td id="postNewAccountTableStatus"></td>
+      <td id="postNewAccountTableAccountID"></td>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--POST login-->
+  <label id="input">Username: </label>
+  <input id="postLoginInputUsername" type="text"></input>
+  <label id="input"> Password: </label>
+  <input id="postLoginInputPassword" type="text"></input><br>
+  <input id="postLoginButton" type="button" value="POST Login"></input><br>
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>AccountID</th>
+    </tr>
+    <tr>
+      <td id="postLoginTableStatus"></td>
+      <td id="postLoginTableAccountID"></td>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--POST delete account-->
+  <label id="input">Username: </label>
+  <input id="postDeleteAccountInputUsername" type="text"></input><br>
+  <input id="postDeleteAccountButton" type="button" value="POST Delete Account"></input><br>
+  <table>
+    <tr>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td id="postDeleteAccountTableStatus"></td>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--POST new recipe-->
+  <label id="input">Recipe Name: </label>
+  <input id="postNewRecipeInputRecipeName" type="text"></input><br>
+  <label id="input">Optional Ingredient 1 Name: </label><input id="postNewRecipeIngredient1Name" type="text"></input>
+  <label id="input">Amount: </label><input id="postNewRecipeIngredient1Amount" type="text"></input>
+  <label id="input">Unit: </label><input id="postNewRecipeIngredient1Unit" type="text"></input><br>
+  <label id="input">Optional Ingredient 2 Name: </label><input id="postNewRecipeIngredient2Name" type="text"></input>
+  <label id="input">Amount: </label><input id="postNewRecipeIngredient2Amount" type="text"></input>
+  <label id="input">Unit: </label><input id="postNewRecipeIngredient2Unit" type="text"></input><br>
+  <label id="input">Optional Ingredient 3 Name: </label><input id="postNewRecipeIngredient3Name" type="text"></input>
+  <label id="input">Amount: </label><input id="postNewRecipeIngredient3Amount" type="text"></input>
+  <label id="input">Unit: </label><input id="postNewRecipeIngredient3Unit" type="text"></input><br>
+  <input id="postNewRecipeButton" type="button" value="POST New Recipe"></input><br>
+  <table>
+    <tr>
+      <th>Status</th>
+      <th>RecipeID</th>
+    </tr>
+    <tr>
+      <td id="postNewRecipeTableStatus"></td>
+      <td id="postNewRecipeTableRecipeID"></td>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--POST delete recipe-->
+  <label id="input">Recipe Name: </label>
+  <input id="postDeleteRecipeInputRecipeName" type="text"></input><br>
+  <input id="postDeleteRecipeButton" type="button" value="POST Delete Recipe"></input><br>
+  <table>
+    <tr>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td id="postDeleteRecipeTableStatus"></td>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--GET all user recipes-->
+  <input id="getAllUserRecipesButton" type="button" value="GET All User Recipes"></input><br>
+  <div id="getAllUserRecipesStatus"></div>
+  <table id="dynTable">
+    <tr>
+      <th>RecipeID</th>
+      <th>AccountID</th>
+      <th>Recipe Name</th>
+      <th>Public/Private</th>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--GET get one recipe-->
+  <label id="input">Recipe ID: </label>
+  <input id="getOneRecipeInputRecipeID" type="text"></input><br>
+  <input id="getOneRecipeButton" type="button" value="GET One Recipe"></input><br>
+  <div id="getOneRecipeStatus"></div>
+  <table>
+    <tr>
+      <th>Recipe ID</th>
+      <th>Account ID</th>
+      <th>Name</th>
+      <th>Public</th>
+    </tr>
+    <tr>
+      <td id="getOneRecipeTableRecipeID"></td>
+      <td id="getOneRecipeTableAccountID"></td>
+      <td id="getOneRecipeTableName"></td>
+      <td id="getOneRecipeTablePublic"></td>
+    </tr>
+  </table>
+  <table id="ingTable">
+    <tr>
+      <th>Name</th>
+      <th>Ingredient ID</th>
+      <th>Amount</th>
+      <th>Unit</th>
+    </tr>
+  </table><br><br><br><br>
+
+  <!--POST delete recipe ingredient-->
+  <label id="input">Recipe Ingredient ID: </label>
+  <input id="postDeleteRecipeIngredientInputRecipeIngredientID" type="text"></input><br>
+  <input id="postDeleteRecipeIngredientButton" type="button" value="POST Delete Recipe Ingredient"></input><br>
+  <table>
+    <tr>
+      <th>Status</th>
+    </tr>
+    <tr>
+      <td id="postDeleteRecipeIngredientTableStatus"></td>
+    </tr>
+  </table><br><br><br><br>
+
+  <script text="type/javascript" src="script.js">
+  </script>
+</body>
+
+</html>

@@ -117,17 +117,15 @@ SQL;
     }
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'GET'){
-    $json = file_get_contents('php://input');
-    $data = json_decode($json, true);
-    switch ($data['type']){
+    switch ($_GET['type']){
         case 'one':
-            if(!empty($data['recipe_id']) && !empty($data['accountID'])){
+            if(!empty($_GET['recipeID']) && !empty($_GET['accountID'])){
                 $query = <<<SQL
 SELECT id as recipeID, account_id as accountID, name, public from recipe where id = ? and (account_id = ? or public = TRUE);
 SQL;
 
                 $stmt = $conn->prepare($query);
-                $stmt->execute([$data['recipe_id'], $data['accountID']]);
+                $stmt->execute([$_GET['recipeID'], $_GET['accountID']]);
                 $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $recipe_query = <<<SQL
 SELECT i.name as name, recipe_ingredient.id as ingredientID, amount, unit FROM recipe_ingredient 
@@ -135,7 +133,7 @@ SELECT i.name as name, recipe_ingredient.id as ingredientID, amount, unit FROM r
     WHERE recipe_id = ?;
 SQL;
                 $stmt = $conn->prepare($recipe_query);
-                $stmt->execute([$data['recipe_id']]);
+                $stmt->execute([$_GET['recipeID']]);
                 $ingredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $recipe['ingredients'] = $ingredients;
                 $json = json_encode($recipe);
@@ -146,11 +144,11 @@ SQL;
             }
             break;
         case 'all':
-            if(!empty($data['accountID'])){
+            if(!empty($_GET['accountID'])){
                 $query = <<<SQL
 SELECT * from recipe where account_id = ? or public = TRUE;
 SQL;
-                $stmt = $conn->prepare($query, [$data['accountID']]);
+                $stmt = $conn->prepare($query, [$_GET['accountID']]);
                 $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $ortho_recipes = [];
                 for($i = 0; $i < $stmt->rowCount(); $i++){

@@ -40,9 +40,9 @@ SQL;
                     array_push($ingredient_names, $ingredient['name']);
                 }
                 $conn->commit();
-
+                echo 'ing_name_size' + sizeof($ingredient_names);
                 $place_holders = implode(',', array_fill(0, count($ingredient_names), '?'));
-                echo sizeof($place_holders) + '\n';
+                echo $place_holders + '\n';
                 $ingredient_query = "SELECT * from ingredient WHERE name in ($place_holders);";
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);

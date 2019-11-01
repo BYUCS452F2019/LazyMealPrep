@@ -152,23 +152,11 @@ SQL;
             echo 'all';
             if(!empty($_GET['accountID'])){
                 $query = <<<SQL
-SELECT * from recipe where account_id = ? or public = TRUE;
+SELECT id as recipeID, name, public, account_id as accountID from recipe where account_id = ? or public = TRUE;
 SQL;
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$_GET['accountID']]);
-                $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $ortho_recipes = [];
-                foreach($recipes as $key=>$recipe){
-                    echo implode(',', $recipe);
-                }
-                for($i = 0; $i < $stmt->rowCount(); $i++){
-                    $recipe = [];
-                    $recipe['name'] = $recipes['name'][$i];
-                    $recipe['recipeID'] = $recipes['id'][$i];
-                    $recipe['public'] = $recipes['public'][$i];
-                    $recipe['accountID'] = $recipes['account_id'][$i];
-                    array_push($ortho_recipes, $recipe);
-                }
+                $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC)
                 $json = json_encode($recipes);
                 echo $json;
             }

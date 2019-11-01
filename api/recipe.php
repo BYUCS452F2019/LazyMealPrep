@@ -48,20 +48,18 @@ SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);
                 $returned = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $nameToID = [];
                 foreach( $returned as $key=>$value){
-                    echo $key . ':';
-                    foreach($value as $minikey=>$minivalue){
-                        echo $minikey . '{' . $minivalue . '}';
-                    }
-                    echo ';';
+                    $nameToID[$value['name']] = $value['id'];
                 }
                 $ingredient_query = <<<SQL
 INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;
+
                 $conn->beingTransaction();
                 $stmt = $conn->prepare($ingredient_query);
                 foreach ($ingredients as $ingredient) {
-                    $ingredient_id = $returned['id'][array_search($ingredient['name'], $returned['name'])];
+                    $ingredient_id = $nameToID[$ingredient['name']];
                     $stmt->execute([$recipe_id, $ingredient_id, $ingredient['amount'], $ingredient['unit']]);
                 }
                 $conn->commit();

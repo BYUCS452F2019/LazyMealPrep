@@ -156,7 +156,7 @@ SQL;
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$_GET['accountID']]);
                 $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $json = json_encode($recipes);
+                $json = json_encode(['recipes'=>$recipes]);
                 echo $json;
             }
             else{

@@ -154,7 +154,8 @@ SQL;
                 $query = <<<SQL
 SELECT * from recipe where account_id = ? or public = TRUE;
 SQL;
-                $stmt = $conn->prepare($query, [$_GET['accountID']]);
+                $stmt = $conn->prepare($query);
+                $stmt->execute([$_GET['accountID']]);
                 $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $ortho_recipes = [];
                 foreach($recipes as $key=>$recipe){

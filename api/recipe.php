@@ -164,7 +164,7 @@ SQL;
                     $recipe['accountID'] = $recipes['account_id'][$i];
                     array_push($ortho_recipes, $recipe);
                 }
-                $json = json_encode($ortho_recipes);
+                $json = json_encode($recipes);
                 echo $json;
             }
             else{

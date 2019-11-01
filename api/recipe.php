@@ -36,6 +36,7 @@ SQL;
                 $ingredient_names = [];
                 $stmt = $conn->prepare($ingredient_query);
                 foreach($ingredients as $ingredient){
+                    echo $ingredient['name'];
                     $stmt->execute([$ingredient['name']]);
                     $ingredient_names.array_push($ingredient['name']);
                 }

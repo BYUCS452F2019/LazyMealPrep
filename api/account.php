@@ -25,7 +25,7 @@ SELECT id from account WHERE username = ?;
 SQL;
                     $stmt = $conn->prepare($query);
                     $stmt->execute([$data['username']]);
-                    echo json_encode($stmt->fetchColumn(0));
+                    echo json_encode(['accountID'=>$stmt->fetchColumn(0)]);
 
                 } else {
                     echo json_encode('username, email, or password missing');

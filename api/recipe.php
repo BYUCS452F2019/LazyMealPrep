@@ -40,13 +40,13 @@ SQL;
                     array_push($ingredient_names, $ingredient['name']);
                 }
                 $conn->commit();
+
                 $place_holders = implode(',', array_fill(0, count($ingredient_names), '?'));
-                $ingredient_query = <<<SQL
-SELECT * from ingredient WHERE name in ($place_holders);
-SQL;
+                $ingredient_query = "SELECT * from ingredient WHERE name in ($place_holders);";
                 $stmt = $conn->prepare($ingredient_query);
-                $stmt->execute([$ingredient_names]);
+                $stmt->execute($ingredient_names);
                 $returned = $stmt->fetchAll();
+
                 $ingredient_query = <<<SQL
 INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;

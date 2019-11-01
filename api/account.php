@@ -11,6 +11,9 @@ $conn = new DbConnection();
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo $_POST['type'];
+        $json = file_get_contents('php://input');
+        $data = json_decode($json);
+        echo $data;
         foreach ($_POST as $key => $value) {
             echo "<tr>";
             echo "<td>";

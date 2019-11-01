@@ -24,11 +24,11 @@ async function postNewAccountRequest(event) {
       const url = "http://lazymealprep.com/api/account.php";
       const response = await fetch(url, {
         method: 'POST',
-        body: JSON.stringify([
-        type=> 'new',
-        username=> username,
-        email=> email,
-        password=> password]
+        body: JSON.stringify({
+        type: 'new',
+        username: username,
+        email: email,
+        password: password}
 
     )
       });

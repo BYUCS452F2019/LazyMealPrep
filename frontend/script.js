@@ -59,9 +59,11 @@ async function postLoginRequest(event) {
       const url = "http://lazymealprep.com/api/account.php";
       const response = await fetch(url, {
         method: 'POST',
-        type: 'login',
-        username: username,
-        password: password
+        body: JSON.stringify({
+          type: 'login',
+          username: username,
+          password: password
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));
@@ -91,9 +93,11 @@ async function postDeleteAccountRequest(event) {
       const url = "http://lazymealprep.com/api/account.php";
       const response = await fetch(url, {
         method: 'POST',
-        type: 'delete',
-        username: username,
-        accountID: savedAccountID
+        body: JSON.stringify({
+          type: 'delete',
+          username: username,
+          accountID: savedAccountID
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));
@@ -146,10 +150,12 @@ async function postNewRecipeRequest(event) {
       const url = "http://lazymealprep.com/api/recipe.php";
       const response = await fetch(url, {
         method: 'POST',
-        type: 'new',
-        name: recipeName,
-        accountID: savedAccountID,
-        ingredients: ingArray
+        body: JSON.stringify({
+          type: 'new',
+          name: recipeName,
+          accountID: savedAccountID,
+          ingredients: ingArray
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));
@@ -174,9 +180,11 @@ async function postDeleteRecipeRequest(event) {
       const url = "http://lazymealprep.com/api/recipe.php";
       const response = await fetch(url, {
         method: 'POST',
-        type: 'delete',
-        name: recipeName,
-        accountID: savedAccountID
+        body: JSON.stringify({
+          type: 'delete',
+          name: recipeName,
+          accountID: savedAccountID
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));
@@ -203,8 +211,10 @@ async function getAllUserRecipesRequest(event) {
       const url = "http://lazymealprep.com/api/recipe.php";
       const response = await fetch(url, {
         method: 'GET',
-        type: 'all',
-        accountID: savedAccountID
+        body: JSON.stringify({
+          type: 'all',
+          accountID: savedAccountID
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));
@@ -271,9 +281,11 @@ async function getOneRecipeRequest(event) {
       const url = "http://lazymealprep.com/api/recipe.php";
       const response = await fetch(url, {
         method: 'GET',
-        type: 'one',
-        recipeID: recipeID,
-        accountID: savedAccountID
+        body: JSON.stringify({
+          type: 'one',
+          recipeID: recipeID,
+          accountID: savedAccountID
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));
@@ -352,9 +364,11 @@ async function postDeleteRecipeIngredientRequest(event) {
       const url = "http://lazymealprep.com/api/recipe.php";
       const response = await fetch(url, {
         method: 'POST',
-        type: 'delete',
-        recipeIngredientID: recipeIngredientID,
-        accountID: savedAccountID
+        body: JSON.stringify({
+          type: 'delete',
+          recipeIngredientID: recipeIngredientID,
+          accountID: savedAccountID
+        })
       });
       const data = await response.json();
       console.log(JSON.stringify(data));

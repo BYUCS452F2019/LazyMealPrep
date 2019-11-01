@@ -30,15 +30,17 @@ SQL;
                 $stmt->execute([$data['accountID'], $data['name']]);
                 $recipe_id = $stmt->fetchColumn();
                 $ingredient_query = <<<SQL
-INSERT INTO ingredient (name) VALUE ? ON DUPLICATE KEY UPDATE name = ?
+INSERT INTO ingredient (name) VALUE (?) ON DUPLICATE KEY UPDATE name = ?
 SQL;
                 $ingredient_names = [];
+                $conn->beingTransaction();
+                $stmt = $conn->prepare($ingredient_query);
                 foreach($ingredients as $ingredient){
                     echo $ingredient['name'];
-                    $stmt = $conn->prepare($ingredient_query);
                     $stmt->execute([$ingredient['name']]);
                     $ingredient_names.array_push($ingredient['name']);
                 }
+                $conn->commit();
                 $ingredient_query = <<<SQL
 SELECT * from ingredient WHERE name in ?;
 SQL;

@@ -107,7 +107,7 @@ SQL;
                     echo json_encode(['status' => 'success']);
                 }
                 else{
-                    echo json_encode('more than one recipe found');
+                    echo json_encode(['more than one recipe found', $stmt->rowCount()]);
                 }
             } else {
                 echo json_encode('missing name or accountID');

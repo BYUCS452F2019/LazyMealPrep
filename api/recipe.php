@@ -172,7 +172,7 @@ SQL;
                 echo $json;
             }
             else{
-                echo json_encode('');
+                echo json_encode('no accountID');
             }
             break;
     }

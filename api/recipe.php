@@ -47,8 +47,8 @@ SQL;
                 $ingredient_query = "SELECT id, name from ingredient WHERE name in ($place_holders);";
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);
-                $returned = $stmt->fetchAll(PDO::FETCH_BOTH);
-                echo implode(':', array_keys($returned));
+                $returned = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo implode(':', $returned);
                 $ingredient_query = <<<SQL
 INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;

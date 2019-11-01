@@ -126,7 +126,7 @@ elseif ($_SERVER['REQUEST_METHOD'] === 'GET'){
         case 'one':
             if(!empty($_GET['recipeID']) && !empty($_GET['accountID'])){
                 $query = <<<SQL
-SELECT id as recipeID, account_id as accountID, name, public from recipe where id = ? and (account_id = ? or public = TRUE);
+SELECT id as recipeID, account_id as accountID, name, (public is not 0) as public from recipe where id = ? and (account_id = ? or public = TRUE);
 SQL;
 
                 $stmt = $conn->prepare($query);

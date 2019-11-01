@@ -60,6 +60,7 @@ SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 foreach ($ingredients as $ingredient) {
                     $ingredient_id = $nameToID[$ingredient['name']];
+                    echo $ingredient_id;
                     $stmt->execute([$recipe_id, $ingredient_id, $ingredient['amount'], $ingredient['unit']]);
                 }
                 $conn->commit();

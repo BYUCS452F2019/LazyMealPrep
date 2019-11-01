@@ -10,25 +10,25 @@ include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $json = json_decode($_POST);
-        switch ($json['type']) {
+        echo $_POST;
+        switch ($_POST['type']) {
             case 'new':
-                if (!empty($json['username']) && !empty($json['email']) && !empty($json['password'])) {
+                if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {
                     $query = <<<SQL
 INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
-                    $stmt = $conn->prepare($query, [$json['username'], $json['email'], $json['password']]);
+                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['email'], $_POST['password']]);
                     $stmt->execute();
                 } else {
                     echo json_encode('');
                 }
                 break;
             case 'login':
-                if (!empty($json['username']) && !empty($json['password'])) {
+                if (!empty($_POST['username']) && !empty($_POST['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$json['username'], $json['password']]);
+                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
                     if ($stmt->rowCount() == 1) {
                         echo json_encode($stmt->fetchColumn());
                     } else {
@@ -39,11 +39,11 @@ SQL;
                 }
                 break;
             case 'delete':
-                if (!empty($json['username']) && !empty($json['password'])) {
+                if (!empty($_POST['username']) && !empty($_POST['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$json['username'], $json['password']]);
+                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
                     if ($stmt->rowCount() == 1) {
                         $query = <<<SQL
 DELETE FROM account WHERE id = ?;

@@ -11,7 +11,6 @@ $conn = new DbConnection();
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         echo $_POST['type'];
-        echo 'type';
         foreach ($_POST as $key => $value) {
             echo "<tr>";
             echo "<td>";

@@ -37,12 +37,12 @@ SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 foreach($ingredients as $ingredient){
                     echo $ingredient['name'];
-                    $stmt->execute([$ingredient['name']]);
-                    $ingredient_names.array_push($ingredient['name']);
+                    $stmt->execute([$ingredient['name'], $ingredient['name']]);
+                    array_push($ingredient_names, $ingredient['name']);
                 }
                 $conn->commit();
                 $ingredient_query = <<<SQL
-SELECT * from ingredient WHERE name in ?;
+SELECT * from ingredient WHERE name in (?);
 SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute([$ingredient_names]);

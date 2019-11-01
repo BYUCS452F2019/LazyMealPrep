@@ -10,7 +10,16 @@ include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        echo $_POST['type'];
+        foreach ($_POST as $key => $value) {
+            echo "<tr>";
+            echo "<td>";
+            echo $key;
+            echo "</td>";
+            echo "<td>";
+            echo $value;
+            echo "</td>";
+            echo "</tr>";
+        }
         switch ($_POST['type']) {
             case 'new':
                 if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {

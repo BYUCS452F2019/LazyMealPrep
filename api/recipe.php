@@ -50,7 +50,9 @@ SQL;
                 $returned = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 foreach( $returned as $key=>$value){
                     echo $key . ':';
-                    echo implode(',', $value);
+                    foreach($value as $minikey=>$minivalue){
+                        echo $minikey . '{' . $minivalue . '}';
+                    }
                     echo ';';
                 }
                 $ingredient_query = <<<SQL

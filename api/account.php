@@ -6,8 +6,7 @@ header("Access-Control-Allow-Origin: *");
 //Post Login attempt (password, username)
 //Post Delete Account (username, password)
 //TODO: Fix to accept JSON for everything.
-include_once 'DbConnection.php';
-
+include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
 echo 'working';
 try {

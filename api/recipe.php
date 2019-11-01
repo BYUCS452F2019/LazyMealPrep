@@ -149,6 +149,7 @@ SQL;
             }
             break;
         case 'all':
+            echo 'all';
             if(!empty($_GET['accountID'])){
                 $query = <<<SQL
 SELECT * from recipe where account_id = ? or public = TRUE;

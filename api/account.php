@@ -21,9 +21,9 @@ SQL;
                     $stmt = $conn->prepare($query);
                     echo $stmt->execute([$data['username'], $data['email'], $data['password']]);
                     $query = <<<SQL
-SELECT id from account where username = ?;
+SELECT id from account;
 SQL;
-                    $stmt = $conn->prepare($query, [$data['username']]);
+                    $stmt = $conn->prepare($query);
                     $stmt->execute();
                     echo json_encode($stmt->rowCount());
 

@@ -50,7 +50,7 @@ SQL;
                     $nameToID[$value['name']] = $value['id'];
                 }
                 $ingredient_query = <<<SQL
-INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, amount, unit) VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;
 
                 $conn->beingTransaction();

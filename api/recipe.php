@@ -3,7 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 
 //Post new recipes new(account_id, name, public, json array of ingredients)
-//Post Update recipe update(recipe_id, name, public, account_id)
+//Post Update recipe update(recipe_id, account_id, json recipe data)
 //Delete Recipe delete(recipe_id, account_id)
 //Get specific recipe (and ingredients) get_one(recipe_id, account_id)
 //Get recipes available to account get_all(account_id)
@@ -66,7 +66,7 @@ SELECT * FROM recipe where id = ? AND account_id = ?;
 SQL;
                 $stmt = $conn->prepare($query, [$_POST['recipe_id'], $_POST['account_id']]);
                 if($stmt->rowCount() == 1){
-                    $new_recipe = json_decode($_POST['diff']);
+                    $new_recipe = json_decode($_POST['recipe']);
                     if(!empty($new_recipe['name']) && !empty($new_recipe['public'])){
                         $query = <<<SQL
 UPDATE recipe SET name = ?, public = ? WHERE id = ?;

@@ -29,7 +29,7 @@ SQL;
                 $stmt = $conn->prepare($recipe_id_query);
                 $stmt->execute([$data['accountID'], $data['name']]);
                 $recipe_id = $stmt->fetchColumn();
-
+                echo $recipe_id;
                 $ingredient_query = <<<SQL
 INSERT INTO ingredient (name) VALUE ? ON DUPLICATE KEY UPDATE name = ?
 SQL;
@@ -98,6 +98,7 @@ SQL;
                 $stmt->execute([$data['recipe_id'], $data['accountID']]);
                 if($stmt->rowCount() == 1){
                     $recipeID = $stmt->fetchColumn();
+                    echo $recipeID;
                     $query = <<<SQL
 DELETE FROM recipe WHERE id = ?;
 SQL;
@@ -106,10 +107,10 @@ SQL;
                     echo json_encode(['status' => 'success']);
                 }
                 else{
-                    echo json_encode('');
+                    echo json_encode('more than one recipe found');
                 }
             } else {
-                echo json_encode('');
+                echo json_encode('missing name or accountID');
             }
             break;
         default:

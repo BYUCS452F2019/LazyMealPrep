@@ -23,7 +23,6 @@ SQL;
                 $stmt = $conn->prepare($recipe_query);
                 $stmt->execute([$data['accountID'], $data['name'], true]);
                 $ingredients = $data['ingredients'];
-                echo sizeof($ingredients);
                 $recipe_id_query = <<<SQL
 SELECT id from recipe WHERE account_id = ? and name = ? ORDER BY id DESC LIMIT 1;
 SQL;
@@ -35,11 +34,13 @@ INSERT INTO ingredient (name) VALUE ? ON DUPLICATE KEY UPDATE name = ?
 SQL;
                 $ingredient_names = [];
                 $stmt = $conn->prepare($ingredient_query);
+                $conn->beingTransaction();
                 foreach($ingredients as $ingredient){
                     echo $ingredient['name'];
                     $stmt->execute([$ingredient['name']]);
                     $ingredient_names.array_push($ingredient['name']);
                 }
+                $conn->commit();
                 $ingredient_query = <<<SQL
 SELECT * from ingredient WHERE name in ?;
 SQL;

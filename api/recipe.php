@@ -42,7 +42,7 @@ SQL;
                 $conn->commit();
                 echo 'ing_name_size';
                 echo count($ingredient_names);
-                $place_holders = implode(':', array_fill(0, count($ingredient_names), '?'));
+                $place_holders = implode(',', array_fill(0, count($ingredient_names), '?'));
                 echo $place_holders;
                 $ingredient_query = "SELECT * from ingredient WHERE name in ($place_holders);";
                 $stmt = $conn->prepare($ingredient_query);

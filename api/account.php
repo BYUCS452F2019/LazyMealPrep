@@ -18,8 +18,8 @@ try {
                     $query = <<<SQL
 INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
-                    $stmt = $conn->prepare($query, [$data['username'], $data['email'], $data['password']]);
-                    $stmt->execute();
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username'], $data['email'], $data['password']]);
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;

@@ -33,10 +33,10 @@ SQL;
 INSERT INTO ingredient (name) VALUE ? ON DUPLICATE KEY UPDATE name = ?
 SQL;
                 $ingredient_names = [];
-                $stmt = $conn->prepare($ingredient_query);
                 $conn->beingTransaction();
                 foreach($ingredients as $ingredient){
                     echo $ingredient['name'];
+                    $stmt = $conn->prepare($ingredient_query);
                     $stmt->execute([$ingredient['name']]);
                     $ingredient_names.array_push($ingredient['name']);
                 }

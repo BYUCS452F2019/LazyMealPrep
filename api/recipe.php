@@ -40,10 +40,7 @@ SQL;
                     array_push($ingredient_names, $ingredient['name']);
                 }
                 $conn->commit();
-                echo 'ing_name_size';
-                echo count($ingredient_names);
                 $place_holders = implode(',', array_fill(0, count($ingredient_names), '?'));
-                echo $place_holders;
                 $ingredient_query = "SELECT id, name from ingredient WHERE name in ($place_holders);";
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);
@@ -61,7 +58,7 @@ SQL;
                 foreach ($ingredients as $ingredient) {
                     $ingredient_id = $nameToID[$ingredient['name']];
                     echo $ingredient_id;
-                    $stmt->execute([$recipe_id, $ingredient_id, $ingredient['amount'], $ingredient['unit']]);
+                    $stmt->execute([$recipe_id, $ingredient_id, floatval($ingredient['amount']), $ingredient['unit']]);
                 }
                 $conn->commit();
                 echo json_encode(['recipeID'=>$recipe_id]);

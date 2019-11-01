@@ -50,14 +50,14 @@ SQL;
                     $nameToID[$value['name']] = $value['id'];
                 }
                 $ingredient_query = <<<SQL
-INSERT INTO recipe_ingredient (recipe_id, ingredient_id, amount, unit) VALUES(recipe_id, ingredient_id, amount, unit);
+INSERT INTO recipe_ingredient (recipe_id, ingredient_id, amount, unit) VALUES (recipe_id, ingredient_id, amount, unit);
 SQL;
 
                 $conn->beingTransaction();
                 $stmt = $conn->prepare($ingredient_query);
                 foreach ($ingredients as $ingredient) {
                     $ingredient_id = $nameToID[$ingredient['name']];
-                    echo $ingredient_id;
+                    echo $ingredient_id . $ingredient['amount'] . $ingredient['unit'];
                     $stmt->execute([$recipe_id, $ingredient_id, floatval($ingredient['amount']), $ingredient['unit']]);
                 }
                 $conn->commit();

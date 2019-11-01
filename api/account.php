@@ -23,7 +23,8 @@ SQL;
                     $query = <<<SQL
 SELECT id from account WHERE username = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$data['username']]);
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username']]);
                     echo json_encode($stmt->fetchColumn(0));
 
                 } else {

@@ -36,9 +36,10 @@ SQL;
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$data['username'], $data['password']]);
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username'], $data['password']]);
                     if ($stmt->rowCount() == 1) {
-                        echo json_encode($stmt->fetchColumn());
+                        echo json_encode(['accountID'=>$stmt->fetchColumn()]);
                     } else {
                         echo json_encode('');
                     }
@@ -47,19 +48,20 @@ SQL;
                 }
                 break;
             case 'delete':
-                if (!empty($data['username']) && !empty($data['password'])) {
+                if (!empty($data['username'])) {
                     $query = <<<SQL
-SELECT id from account where username = ? and password = ?;
+SELECT id from account where username = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$data['username'], $data['password']]);
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username'], $data['password']]);
                     if ($stmt->rowCount() == 1) {
                         $query = <<<SQL
 DELETE FROM account WHERE id = ?;
 SQL;
                         $id = $stmt->fetchColumn();
-                        $stmt = $conn->prepare($query, [$id]);
-                        $stmt->execute();
-                        echo json_encode('success');
+                        $stmt = $conn->prepare($query);
+                        $stmt->execute([$id]);
+                        echo json_encode(['status'=>'success']);
                     } else {
                         echo json_encode('');
                     }

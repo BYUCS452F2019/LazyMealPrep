@@ -12,18 +12,6 @@ try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
-        echo $data['type'];
-
-        foreach ($data as $key => $value) {
-            echo "<tr>";
-            echo "<td>";
-            echo $key;
-            echo "</td>";
-            echo "<td>";
-            echo $value;
-            echo "</td>";
-            echo "</tr>";
-        }
         switch ($data['type']) {
             case 'new':
                 if (!empty($data['username']) && !empty($data['email']) && !empty($data['password'])) {
@@ -32,8 +20,14 @@ INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
                     $stmt = $conn->prepare($query, [$data['username'], $data['email'], $data['password']]);
                     $stmt->execute();
+                    $query = <<<SQL
+SELECT id from account where username = ? and password = ?;
+SQL;
+                    $stmt = $conn->prepare($query, [$data['username'], $data['password']]);
+                    echo json_encode($stmt->fetchColumn());
+
                 } else {
-                    echo json_encode('');
+                    echo json_encode('username, email, or password missing');
                 }
                 break;
             case 'login':

@@ -156,7 +156,7 @@ SELECT id as recipeID, name, public, account_id as accountID from recipe where a
 SQL;
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$_GET['accountID']]);
-                $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC)
+                $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $json = json_encode($recipes);
                 echo $json;
             }

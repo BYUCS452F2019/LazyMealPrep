@@ -274,14 +274,9 @@ async function getOneRecipeRequest(event) {
   try {
     if (document.getElementById("sampleSwitch").checked === false) {
       const recipeID = document.getElementById("getOneRecipeInputRecipeID").value;
-      const url = "http://lazymealprep.com/api/recipe.php";
+      const url = "http://lazymealprep.com/api/recipe.php" + "?type=one&recipeID=" + recipeID + "&accountID=" + savedAccountID;
       const response = await fetch(url, {
-        method: 'GET',
-        body: JSON.stringify({
-          type: 'one',
-          recipeID: recipeID,
-          accountID: savedAccountID
-        })
+        method: 'GET'
       });
       const data = await response.json();
       console.log(JSON.stringify(data));

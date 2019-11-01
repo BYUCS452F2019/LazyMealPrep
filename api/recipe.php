@@ -23,13 +23,13 @@ SQL;
                 $stmt = $conn->prepare($recipe_query);
                 $stmt->execute([$data['accountID'], $data['name'], true]);
                 $ingredients = $data['ingredients'];
+                echo sizeof($ingredients);
                 $recipe_id_query = <<<SQL
 SELECT id from recipe WHERE account_id = ? and name = ? ORDER BY id DESC LIMIT 1;
 SQL;
                 $stmt = $conn->prepare($recipe_id_query);
                 $stmt->execute([$data['accountID'], $data['name']]);
                 $recipe_id = $stmt->fetchColumn();
-                echo $recipe_id;
                 $ingredient_query = <<<SQL
 INSERT INTO ingredient (name) VALUE ? ON DUPLICATE KEY UPDATE name = ?
 SQL;
@@ -98,7 +98,6 @@ SQL;
                 $stmt->execute([$data['name'], $data['accountID']]);
                 if($stmt->rowCount() == 1){
                     $recipeID = $stmt->fetchColumn();
-                    echo $recipeID;
                     $query = <<<SQL
 DELETE FROM recipe WHERE id = ?;
 SQL;

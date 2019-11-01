@@ -42,11 +42,12 @@ SQL;
                 $conn->commit();
 
                 $place_holders = implode(',', array_fill(0, count($ingredient_names), '?'));
+                echo $place_holders + '\n';
                 $ingredient_query = "SELECT * from ingredient WHERE name in ($place_holders);";
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);
                 $returned = $stmt->fetchAll();
-
+                echo sizeof($returned);
                 $ingredient_query = <<<SQL
 INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;

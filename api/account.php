@@ -21,7 +21,7 @@ SQL;
                     $stmt = $conn->prepare($query);
                     echo $stmt->execute([$data['username'], $data['email'], $data['password']]);
                     $query = <<<SQL
-SELECT id from account where username = ? and password = ?;
+SELECT id from account where username = ?;
 SQL;
                     $stmt = $conn->prepare($query, [$data['username'], $data['password']]);
                     echo json_encode($stmt->fetchColumn());

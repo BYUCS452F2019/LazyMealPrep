@@ -284,7 +284,7 @@ async function getOneRecipeRequest(event) {
       document.getElementById("getOneRecipeTableRecipeID").innerHTML = data.recipeID;
       document.getElementById("getOneRecipeTableAccountID").innerHTML = data.accountID;
       document.getElementById("getOneRecipeTableName").innerHTML = data.name;
-      if (data.public === true) document.getElementById("getOneRecipeTablePublic").innerHTML = "Public";
+      if (data.public == true) document.getElementById("getOneRecipeTablePublic").innerHTML = "Public";
       else document.getElementById("getOneRecipeTablePublic").innerHTML = "Private";
 
       var i;

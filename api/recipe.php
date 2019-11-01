@@ -47,7 +47,7 @@ SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);
                 $returned = $stmt->fetchAll();
-                echo array_keys($returned);
+                echo implode(',', array_keys($returned));
                 $ingredient_query = <<<SQL
 INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;

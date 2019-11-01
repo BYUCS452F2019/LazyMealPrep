@@ -10,9 +10,8 @@ include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
 try {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $request_body = file_get_contents('php://input');
-        $json = json_decode($request_body);
-        echo $json;
+        echo $_POST['type'];
+        echo 'type';
         foreach ($_POST as $key => $value) {
             echo "<tr>";
             echo "<td>";

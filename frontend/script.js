@@ -352,7 +352,7 @@ async function postDeleteRecipeIngredientRequest(event) {
   try {
     if (document.getElementById("sampleSwitch").checked === false) {
       const recipeIngredientID = document.getElementById("postDeleteRecipeIngredientInputRecipeIngredientID").value;
-      const url = "http://lazymealprep.com/api/recipe.php";
+      const url = "http://lazymealprep.com/api/ingredient.php";
       const response = await fetch(url, {
         method: 'POST',
         body: JSON.stringify({

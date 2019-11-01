@@ -92,10 +92,10 @@ SQL;
                     echo json_encode(['status' => 'success']);
                 }
                 else{
-                    echo json_encode('');
+                    echo json_encode('row count not equal to 1');
                 }
             } else {
-                echo json_encode('');
+                echo json_encode('missing recipeIngredientID or accountID');
             }
             break;
         default:

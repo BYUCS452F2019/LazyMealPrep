@@ -40,8 +40,9 @@ SQL;
                     array_push($ingredient_names, $ingredient['name']);
                 }
                 $conn->commit();
+                $place_holders = implode(',', array_fill(0, count($ingredient_names), '?'));
                 $ingredient_query = <<<SQL
-SELECT * from ingredient WHERE name in (?);
+SELECT * from ingredient WHERE name in ($place_holders);
 SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute([$ingredient_names]);
@@ -52,7 +53,7 @@ SQL;
                 $conn->beingTransaction();
                 $stmt = $conn->prepare($ingredient_query);
                 foreach ($ingredients as $ingredient) {
-                    $ingredient_id = $returned['id'][array_search($ingredient['name'], $returned)];
+                    $ingredient_id = $returned['id'][array_search($ingredient['name'], $returned['name'])];
                     $stmt->execute([$recipe_id, $ingredient_id, $ingredient['amount'], $ingredient['unit']]);
                 }
                 $conn->commit();
@@ -158,7 +159,7 @@ SQL;
                     $recipe['recipeID'] = $recipes['id'][$i];
                     $recipe['public'] = $recipes['public'][$i];
                     $recipe['accountID'] = $recipes['account_id'][$i];
-                    $ortho_recipes.array_push($recipe);
+                    array_push($ortho_recipes, $recipe);
                 }
                 $json = json_encode($ortho_recipes);
                 echo $json;

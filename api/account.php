@@ -21,10 +21,10 @@ SQL;
                     $stmt = $conn->prepare($query);
                     echo $stmt->execute([$data['username'], $data['email'], $data['password']]);
                     $query = <<<SQL
-SELECT id from account;
+SELECT id from account WHERE username = ?;
 SQL;
                     $stmt = $conn->prepare($query);
-                    $stmt->execute();
+                    $stmt->execute([$data['username']]);
                     echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 
                 } else {

@@ -156,6 +156,9 @@ SQL;
                 $stmt = $conn->prepare($query, [$_GET['accountID']]);
                 $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 $ortho_recipes = [];
+                foreach($recipes as $key=>$recipe){
+                    echo implode(',', $recipe);
+                }
                 for($i = 0; $i < $stmt->rowCount(); $i++){
                     $recipe = [];
                     $recipe['name'] = $recipes['name'][$i];

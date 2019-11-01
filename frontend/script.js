@@ -21,7 +21,7 @@ async function postNewAccountRequest(event) {
       const username = document.getElementById("postNewAccountInputUsername").value;
       const password = document.getElementById("postNewAccountInputPassword").value;
       const email = document.getElementById("postNewAccountInputEmail").value;
-      const url = "http://lazymealprep.com/api/";
+      const url = "http://lazymealprep.com/api/account.php";
       const response = await fetch(url, {
         method: 'POST',
         type: 'new',

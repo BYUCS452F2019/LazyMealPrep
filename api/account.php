@@ -8,42 +8,42 @@ header("Access-Control-Allow-Origin: *");
 //TODO: Fix to accept JSON for everything.
 include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
-echo 'working';
 try {
     if (!empty($_POST)) {
-        switch ($_POST['type']) {
+        $json = json_decode($_POST);
+        switch ($json['type']) {
             case 'new':
-                if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+                if (!empty($json['username']) && !empty($json['email']) && !empty($json['password'])) {
                     $query = <<<SQL
 INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['email'], $_POST['password']]);
+                    $stmt = $conn->prepare($query, [$json['username'], $json['email'], $json['password']]);
                     $stmt->execute();
                 } else {
-                    echo -1;
+                    echo json_encode('');
                 }
                 break;
             case 'login':
-                if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                if (!empty($json['username']) && !empty($json['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
+                    $stmt = $conn->prepare($query, [$json['username'], $json['password']]);
                     if ($stmt->rowCount() == 1) {
                         echo json_encode($stmt->fetchColumn());
                     } else {
-                        echo -1;
+                        echo json_encode('');
                     }
                 } else {
-                    echo -1;
+                    echo json_encode('');
                 }
                 break;
             case 'delete':
-                if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                if (!empty($json['username']) && !empty($json['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
+                    $stmt = $conn->prepare($query, [$json['username'], $json['password']]);
                     if ($stmt->rowCount() == 1) {
                         $query = <<<SQL
 DELETE FROM account WHERE id = ?;
@@ -51,19 +51,19 @@ SQL;
                         $id = $stmt->fetchColumn();
                         $stmt = $conn->prepare($query, [$id]);
                         $stmt->execute();
-                        echo 0;
+                        echo json_encode('success');
                     } else {
-                        echo -1;
+                        echo json_encode('');
                     }
                 } else {
-                    echo -1;
+                    echo json_encode('');
                 }
                 break;
             default:
-                echo -1;
+                echo json_encode('');
         }
     } else {
-        echo -1;
+        echo json_encode('');
     }
 }
 catch (\Exception $e){

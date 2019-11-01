@@ -208,13 +208,9 @@ async function postDeleteRecipeRequest(event) {
 async function getAllUserRecipesRequest(event) {
   try {
     if (document.getElementById("sampleSwitch").checked === false) {
-      const url = "http://lazymealprep.com/api/recipe.php";
+      const url = "http://lazymealprep.com/api/recipe.php" + "?type=all&accountID=" + savedAccountID;
       const response = await fetch(url, {
-        method: 'GET',
-        body: JSON.stringify({
-          type: 'all',
-          accountID: savedAccountID
-        })
+        method: 'GET'
       });
       const data = await response.json();
       console.log(JSON.stringify(data));

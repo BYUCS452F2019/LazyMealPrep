@@ -56,7 +56,7 @@ SQL;
                         $stmt->execute([$data['accountID'], $data['username']]);
                         echo json_encode(['status'=>'success']);
                     } else {
-                        echo json_encode('');
+                        echo json_encode('missing username or accountID');
                     }
                 break;
             default:

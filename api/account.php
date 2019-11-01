@@ -9,7 +9,7 @@ header("Access-Control-Allow-Origin: *");
 include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
 try {
-    if (!empty($_POST)) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $json = json_decode($_POST);
         switch ($json['type']) {
             case 'new':

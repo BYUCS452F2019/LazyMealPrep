@@ -30,14 +30,13 @@ SQL;
                 $stmt->execute([$data['accountID'], $data['name']]);
                 $recipe_id = $stmt->fetchColumn();
                 $ingredient_query = <<<SQL
-INSERT INTO ingredient (name) VALUE (?) ON DUPLICATE KEY UPDATE name = ?;
+INSERT INTO ingredient (name) VALUE (?);
 SQL;
                 $ingredient_names = [];
                 $conn->beingTransaction();
                 $stmt = $conn->prepare($ingredient_query);
                 foreach($ingredients as $ingredient){
-                    echo $ingredient['name'];
-                    $stmt->execute([$ingredient['name'], $ingredient['name']]);
+                    $stmt->execute([$ingredient['name']]);
                     array_push($ingredient_names, $ingredient['name']);
                 }
                 $conn->commit();

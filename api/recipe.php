@@ -48,7 +48,11 @@ SQL;
                 $stmt = $conn->prepare($ingredient_query);
                 $stmt->execute($ingredient_names);
                 $returned = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                echo implode(':', $returned);
+                foreach( $returned as $key=>$value){
+                    echo $key . ':';
+                    echo implode(',', $value);
+                    echo ';';
+                }
                 $ingredient_query = <<<SQL
 INSERT INTO recipe_ingredient VALUES(recipe_id, ingredient_id, amount, unit);
 SQL;

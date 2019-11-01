@@ -30,7 +30,7 @@ SQL;
                 $stmt->execute([$data['accountID'], $data['name']]);
                 $recipe_id = $stmt->fetchColumn();
                 $ingredient_query = <<<SQL
-INSERT INTO ingredient (name) VALUE (?) ON DUPLICATE KEY UPDATE name = ?
+INSERT INTO ingredient (name) VALUE (?) ON DUPLICATE KEY UPDATE name = ?;
 SQL;
                 $ingredient_names = [];
                 $conn->beingTransaction();

@@ -79,7 +79,8 @@ SQL;
         case 'delete':
             if (!empty($data['recipeIngredientID']) && !empty($data['accountID'])) {
                 $query = <<<SQL
-SELECT r.account_id FROM recipe_ingredient left join recipe r on recipe_ingredient.recipe_id = r.id where id = ? and r.account_id = ?;
+SELECT r.account_id FROM recipe_ingredient left join recipe r on recipe_ingredient.recipe_id = r.id 
+where recipe_ingredient.id = ? and r.account_id = ?;
 SQL;
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$data['recipeIngredientID'], $data['accountID']]);

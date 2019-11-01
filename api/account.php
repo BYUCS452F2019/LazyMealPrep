@@ -48,26 +48,16 @@ SQL;
                 }
                 break;
             case 'delete':
-                if (!empty($data['username'])) {
-                    $query = <<<SQL
-SELECT id from account where username = ?;
-SQL;
-                    $stmt = $conn->prepare($query);
-                    $stmt->execute([$data['username'], $data['password']]);
-                    if ($stmt->rowCount() == 1) {
+                if (!empty($data['username']) && !empty($data['accountID'])) {
                         $query = <<<SQL
-DELETE FROM account WHERE id = ?;
+DELETE FROM account WHERE id = ? and username = ?;
 SQL;
-                        $id = $stmt->fetchColumn();
                         $stmt = $conn->prepare($query);
-                        $stmt->execute([$id]);
+                        $stmt->execute([$data['accountID'], $data['username']]);
                         echo json_encode(['status'=>'success']);
                     } else {
                         echo json_encode('');
                     }
-                } else {
-                    echo json_encode('');
-                }
                 break;
             default:
                 echo json_encode('type not found');

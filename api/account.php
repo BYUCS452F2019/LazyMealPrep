@@ -25,7 +25,7 @@ SELECT id from account;
 SQL;
                     $stmt = $conn->prepare($query);
                     $stmt->execute();
-                    echo json_encode($stmt->rowCount());
+                    echo json_encode($stmt->fetchAll(PDO::FETCH_ASSOC));
 
                 } else {
                     echo json_encode('username, email, or password missing');

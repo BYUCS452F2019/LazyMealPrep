@@ -25,7 +25,7 @@ SELECT id from account where username = ?;
 SQL;
                     $stmt = $conn->prepare($query, [$data['username']]);
                     $stmt->execute();
-                    echo json_encode($stmt->fetchColumn());
+                    echo json_encode($stmt->rowCount());
 
                 } else {
                     echo json_encode('username, email, or password missing');

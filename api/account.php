@@ -60,10 +60,10 @@ SQL;
                 }
                 break;
             default:
-                echo json_encode('');
+                echo json_encode('type not found');
         }
     } else {
-        echo json_encode('');
+        echo json_encode('post was empty');
     }
 }
 catch (\Exception $e){

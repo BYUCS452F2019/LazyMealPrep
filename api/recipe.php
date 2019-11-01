@@ -33,14 +33,12 @@ SQL;
 INSERT INTO ingredient (name) VALUE ? ON DUPLICATE KEY UPDATE name = ?
 SQL;
                 $ingredient_names = [];
-                $conn->beingTransaction();
                 foreach($ingredients as $ingredient){
                     echo $ingredient['name'];
                     $stmt = $conn->prepare($ingredient_query);
                     $stmt->execute([$ingredient['name']]);
                     $ingredient_names.array_push($ingredient['name']);
                 }
-                $conn->commit();
                 $ingredient_query = <<<SQL
 SELECT * from ingredient WHERE name in ?;
 SQL;

@@ -6,63 +6,64 @@ header("Access-Control-Allow-Origin: *");
 //Post Login attempt (password, username)
 //Post Delete Account (username, password)
 //TODO: Fix to accept JSON for everything.
+include_once __DIR__ . '/' . 'DbConnection.php';
 $conn = new DbConnection();
-echo 'working';
 try {
-    if (!empty($_POST)) {
-        switch ($_POST['type']) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $json = file_get_contents('php://input');
+        $data = json_decode($json, true);
+        switch ($data['type']) {
             case 'new':
-                if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+                if (!empty($data['username']) && !empty($data['email']) && !empty($data['password'])) {
                     $query = <<<SQL
 INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['email'], $_POST['password']]);
-                    $stmt->execute();
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username'], $data['email'], $data['password']]);
+                    $query = <<<SQL
+SELECT id from account WHERE username = ?;
+SQL;
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username']]);
+                    echo json_encode(['accountID'=>$stmt->fetchColumn(0)]);
+
                 } else {
-                    echo -1;
+                    echo json_encode('username, email, or password missing');
                 }
                 break;
             case 'login':
-                if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                if (!empty($data['username']) && !empty($data['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
+                    $stmt = $conn->prepare($query);
+                    $stmt->execute([$data['username'], $data['password']]);
                     if ($stmt->rowCount() == 1) {
-                        echo json_encode($stmt->fetchColumn());
+                        echo json_encode(['accountID'=>$stmt->fetchColumn()]);
                     } else {
-                        echo -1;
+                        echo json_encode('');
                     }
                 } else {
-                    echo -1;
+                    echo json_encode('');
                 }
                 break;
             case 'delete':
-                if (!empty($_POST['username']) && !empty($_POST['password'])) {
-                    $query = <<<SQL
-SELECT id from account where username = ? and password = ?;
-SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
-                    if ($stmt->rowCount() == 1) {
+                if (!empty($data['username']) && !empty($data['accountID'])) {
                         $query = <<<SQL
-DELETE FROM account WHERE id = ?;
+DELETE FROM account WHERE id = ? and username = ?;
 SQL;
-                        $id = $stmt->fetchColumn();
-                        $stmt = $conn->prepare($query, [$id]);
-                        $stmt->execute();
-                        echo 0;
+                        $stmt = $conn->prepare($query);
+                        $stmt->execute([$data['accountID'], $data['username']]);
+                        echo json_encode(['status'=>'success']);
                     } else {
-                        echo -1;
+                        echo json_encode('missing username or accountID');
                     }
-                } else {
-                    echo -1;
-                }
                 break;
             default:
-                echo -1;
+                echo json_encode('type not found');
         }
     } else {
-        echo -1;
+        echo json_encode('post was empty');
     }
 }
 catch (\Exception $e){

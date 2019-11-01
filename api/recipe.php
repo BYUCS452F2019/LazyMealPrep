@@ -95,7 +95,7 @@ SQL;
 SELECT * FROM recipe where name = ? AND account_id = ?;
 SQL;
                 $stmt = $conn->prepare($query);
-                $stmt->execute([$data['recipe_id'], $data['accountID']]);
+                $stmt->execute([$data['name'], $data['accountID']]);
                 if($stmt->rowCount() == 1){
                     $recipeID = $stmt->fetchColumn();
                     echo $recipeID;

@@ -13,9 +13,8 @@ try {
         $json = file_get_contents('php://input');
         $data = json_decode($json, true);
         echo $data['type'];
-        echo $_POST['type'];
 
-        foreach ($_POST as $key => $value) {
+        foreach ($data as $key => $value) {
             echo "<tr>";
             echo "<td>";
             echo $key;
@@ -25,24 +24,24 @@ try {
             echo "</td>";
             echo "</tr>";
         }
-        switch ($_POST['type']) {
+        switch ($data['type']) {
             case 'new':
-                if (!empty($_POST['username']) && !empty($_POST['email']) && !empty($_POST['password'])) {
+                if (!empty($data['username']) && !empty($data['email']) && !empty($data['password'])) {
                     $query = <<<SQL
 INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['email'], $_POST['password']]);
+                    $stmt = $conn->prepare($query, [$data['username'], $data['email'], $data['password']]);
                     $stmt->execute();
                 } else {
                     echo json_encode('');
                 }
                 break;
             case 'login':
-                if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                if (!empty($data['username']) && !empty($data['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
+                    $stmt = $conn->prepare($query, [$data['username'], $data['password']]);
                     if ($stmt->rowCount() == 1) {
                         echo json_encode($stmt->fetchColumn());
                     } else {
@@ -53,11 +52,11 @@ SQL;
                 }
                 break;
             case 'delete':
-                if (!empty($_POST['username']) && !empty($_POST['password'])) {
+                if (!empty($data['username']) && !empty($data['password'])) {
                     $query = <<<SQL
 SELECT id from account where username = ? and password = ?;
 SQL;
-                    $stmt = $conn->prepare($query, [$_POST['username'], $_POST['password']]);
+                    $stmt = $conn->prepare($query, [$data['username'], $data['password']]);
                     if ($stmt->rowCount() == 1) {
                         $query = <<<SQL
 DELETE FROM account WHERE id = ?;

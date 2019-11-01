@@ -7,7 +7,7 @@ header("Access-Control-Allow-Origin: *");
 //Delete Recipe delete(recipe_id, account_id)
 //Get specific recipe (and ingredients) get_one(recipe_id, account_id)
 //Get recipes available to account get_all(account_id)
-
+include_once __DIR__ . '/' . 'DbConnection.php';
 
 $conn = new DbConnection();
 

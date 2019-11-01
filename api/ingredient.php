@@ -4,7 +4,7 @@
 //Post Update Ingredient (account_id, json ingredient data)
 //Post Delete Ingredient (ingredient_id, account_id)
 
-include_once 'DbConnection.php';
+include_once __DIR__ . '/' . 'DbConnection.php';
 
 
 $conn = new DbConnection();

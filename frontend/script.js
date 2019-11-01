@@ -233,7 +233,7 @@ async function getAllUserRecipesRequest(event) {
         cell0.innerHTML = data.recipes[i].recipeID;
         cell1.innerHTML = data.recipes[i].accountID;
         cell2.innerHTML = data.recipes[i].name;
-        if (data.recipes[i].public === true) cell3.innerHTML = "Public";
+        if (data.recipes[i].public == true) cell3.innerHTML = "Public";
         else cell3.innerHTML = "Private";
       }
 

@@ -19,7 +19,7 @@ try {
 INSERT INTO account (username, email, password) VALUES (?,?,?);
 SQL;
                     $stmt = $conn->prepare($query);
-                    echo $stmt->execute([$data['username'], $data['email'], $data['password']]);
+                    $stmt->execute([$data['username'], $data['email'], $data['password']]);
                     $query = <<<SQL
 SELECT id from account WHERE username = ?;
 SQL;

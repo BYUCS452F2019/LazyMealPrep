@@ -174,3 +174,60 @@ header("Access-Control-Allow-Origin: *");
       {
         <anything else>
       }
+
+9 POST, add meal to calendar, api/calendar.php
+    {
+      method: 'POST'
+      type: 'add'
+      recipeID: string
+      meal: string
+      date: string
+      accountID: string
+    }
+  Response:
+      {
+        status: 'success'
+      }
+    On failure:
+      {
+        <anything else>
+      }
+
+10 POST, delete meal from calendar, api/calendar.php
+    {
+      method: 'POST'
+      type: 'delete'
+      mealID: string
+      accountID: string
+    }
+  Response:
+      {
+        status: 'success'
+      }
+    On failure:
+      {
+        <anything else>
+      }
+
+11 GET, get all meals for range, api/calendar.php
+    {
+      method: 'GET'
+      type: 'add'
+      startDate: Date
+      endDate: DAte
+    }
+  Response:
+      {
+        recipes: [
+          {
+            recipeID: string
+            accountID: string
+            name: string <name of the recipe>
+            public: true/false
+          }
+        ]
+      }
+    On failure:
+      {
+        <anything else>
+      }

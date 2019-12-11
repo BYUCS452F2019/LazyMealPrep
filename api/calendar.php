@@ -56,49 +56,19 @@ SQL;
     }
 }
 elseif ($_SERVER['REQUEST_METHOD'] === 'GET'){
-    switch ($_GET['type']){
-        case 'one':
-            if(!empty($_GET['recipeID']) && !empty($_GET['accountID'])){
-                $query = <<<SQL
-SELECT id as recipeID, account_id as accountID, name, public from recipe where id = ? and (account_id = ? or public = TRUE);
-SQL;
-
-                $stmt = $conn->prepare($query);
-                $stmt->execute([$_GET['recipeID'], $_GET['accountID']]);
-                $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
-                $recipe_query = <<<SQL
-SELECT i.name as name, recipe_ingredient.id as ingredientID, amount, unit FROM recipe_ingredient 
-    left join ingredient i on recipe_ingredient.ingredient_id = i.id 
-    WHERE recipe_id = ?;
-SQL;
-
-                $stmt = $conn->prepare($recipe_query);
-                $stmt->execute([$_GET['recipeID']]);
-                $ingredients = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $recipe['ingredients'] = $ingredients;
-                $json = json_encode($recipe);
-                echo $json;
-            }
-            else{
-                echo json_encode('');
-            }
-            break;
-        case 'all':
-            if(!empty($_GET['accountID']) && !empty($_GET['startDate']) && !empty($_GET['endDate'])){
-                $query = <<<SQL
+    if(!empty($_GET['accountID']) && !empty($_GET['startDate']) && !empty($_GET['endDate'])){
+        $query = <<<SQL
 SELECT recipe.id as recipeID, name, public, recipe.account_id as accountID from recipe left join calendar c on recipe.id = c.recipe_id 
 where c.date >= ? and c.date <= ?;
 SQL;
-                $stmt = $conn->prepare($query);
-                $stmt->execute([$_GET['startDate'], $_GET['endDate']]);
-                $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                $json = json_encode(['recipes'=>$recipes]);
-                echo $json;
-            }
-            else{
-                echo json_encode('no accountID, startDate, or endDate');
-            }
-            break;
+        $stmt = $conn->prepare($query);
+        $stmt->execute([$_GET['startDate'], $_GET['endDate']]);
+        $recipes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $json = json_encode(['recipes'=>$recipes]);
+        echo $json;
+    }
+    else{
+        echo json_encode('no accountID, startDate, or endDate');
     }
 }
 

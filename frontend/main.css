@@ -1,0 +1,178 @@
+/*
+dark: #406080;
+off white: #E5F2FF;
+*/
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background-color: #E5F2FF;
+  font-family: sans-serif;
+  color: #406080;
+  text-align: center;
+}
+
+.container {
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  width: 520px;
+  height: 400px;
+  padding: 16px;
+  flex-direction: column;
+  border: 1px solid #406080;
+}
+
+input {
+  width: 88%;
+  align-self: center;
+  padding: 0.5% 1%;
+  border: 1px solid #ccc;
+}
+
+label {
+  align-self: center;
+}
+
+.headerButton {
+  min-width: 80px;
+  width: auto;
+  height: 100%;
+  align-self: flex-end;
+}
+
+button {
+  color: white;
+  background-color: #80bfff;
+  border: 1px solid #406080;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+  border: none;
+}
+
+#header {
+  border: 1px solid #406080;
+  z-index: 1;
+  position: fixed;
+  display: flex;
+  justify-content: flex-end;
+  top: 0;
+  right: 0;
+  height: 60px;
+  width: auto;
+}
+
+#mainWindow {
+  display: flex;
+  position: fixed;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+}
+
+#leftSide {
+  border: 1px solid #406080;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  min-height: 200px;
+  height: 100%;
+  width: 40%;
+}
+
+#listHead {
+  flex-shrink: 0;
+}
+
+#listBody {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  align-items: center;
+}
+
+#rightSide {
+  align-self: flex-end;
+  display: flex;
+  height: 100%;
+  width: 60%;
+  border: 1px solid #406080;
+}
+
+#modalBackground {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 2; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+#dynModal {
+  background-color: #fefefe;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #406080;
+  width: 80%; /* Could be more or less, depending on screen size */
+}
+
+#accountDeleteButton {
+  background-color: #FF9F99;
+  color: #406080;
+  margin: 16px;
+  padding: 8px;
+}
+
+#newRecipeButton {
+  border: 1px solid #406080;
+  width: 100%;
+  padding:8px;
+  height: 60px;
+}
+
+#logo {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0;
+  padding: 0;
+}
+
+.ingredientForm {
+  height: auto;
+  width: auto;
+  padding: 2px;
+  margin: 2px;
+}
+
+#CNRMessage {
+  color: #FF9F99;
+  min-height: 20px;
+  padding: 5px;
+  align-self: center;
+}
+
+.deleteButtonList {
+  background-color: #FF9F99;
+  color: #406080;
+}
+
+.dynRecipe {
+  background-color: #608FBF;
+  width: calc(100% - 10px);
+  height: 30px;
+  border: 1px, solid, black;
+  cursor: pointer;
+  margin: 10px;
+  margin-bottom: 4px;
+  padding: 4px;
+  color: #E5F2FF;
+}

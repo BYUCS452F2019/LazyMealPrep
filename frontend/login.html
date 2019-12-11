@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style> .container {display: none;} </style>
+  <meta charset="utf-8" />
+  <title>Login</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="cookies.js"></script>
+  <script src="login.js"></script>
+  <link rel="stylesheet" type= "text/css" href="login.css">
+</head>
+<body>
+  <h1>Lazy Meal Prep</h1>
+  <h2>Login</h2><br>
+  <div id="loginContent" class="container">
+    <label><b>Username</b></label><br>
+    <input id="loginUser" type="text" placeholder="Username" required><br>
+    <label><b>Password</b></label><br>
+    <input id="loginPassword" type="password" placeholder="Password" required><br>
+    <button type="submit" id="loginButton">Login</button><br>
+    <div id="message" class="message"> </div>
+    <a id="registerSwitch" class="smessage">Not registered? Click here</a>
+  </div>
+  <div id="registerContent" class="container">
+    <label><b>Username</b></label><br>
+    <input id="regUser" type="text" placeholder="Username" required><br>
+    <label><b>Password</b></label><br>
+    <input id="regPassword" type="password" placeholder="Password" required><br>
+    <label><b>Email</b></label><br>
+    <input id="regEmail" type="text" placeholder="Email" required><br>
+    <button type="submit" id="regButton">Register</button><br>
+    <div id="regmessage" class="message"> </div>
+    <a id="loginSwitch" class="smessage">Already registered? Click here</a>
+  </div>
+  <img src="favicon.ico" id="logo" width="64" height="64">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="cookies.js"></script>
+  <script src="login.js"></script>
+</body>
+</html>

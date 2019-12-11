@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="cookies.js"></script>
+  <script src="main.js"></script>
+  <meta charset="utf-8" />
+  <title>Main</title>
+  <link rel="stylesheet" type= "text/css" href="main.css">
+</head>
+
+</body>
+
+<div id="header">
+  <button type="submit" class="headerButton" id="logoutButton">Logout</button>
+  <button type="submit" class="headerButton" id="accountButton"></button>
+</div>
+<div id="mainWindow">
+  <div id="leftSide">
+    <div id="listHead">
+      <button id="newRecipeButton">Create New Recipe</button>
+    </div>
+    <div id="listBody">
+    </div>
+  </div>
+  <div id="rightSide">
+
+  </div>
+</div>
+<div id="modalBackground">
+<div id="dynModal">
+</div>
+</div>
+<img src="favicon.ico" id="logo" width="64" height="64">
+<style> #newRecipeForm {display: none;} </style>
+<div id="newRecipeForm">
+  <label><b>Recipe Name</b></label><br>
+  <input id="newRecipeName" type="text" placeholder="Name" required><br>
+  <label><b>Ingredients</b></label><br>
+  <div id="newIngredientsList"></div>
+  <div id="message" class="message"> </div>
+</div>
+
+
+</body>
+</html>

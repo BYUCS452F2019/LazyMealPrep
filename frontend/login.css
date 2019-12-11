@@ -1,0 +1,70 @@
+/*
+dark: #406080;
+off white: #E5F2FF;
+*/
+
+html {
+  background-color: #E5F2FF;
+  font-family: sans-serif;
+  color: #406080;
+  text-align: center;
+}
+
+.container {
+  background-color: #FFFFFF;
+  margin: 0 auto;
+  width: 520px;
+  height: 400px;
+  padding: 16px;
+  flex-direction: column;
+  border: 3px solid #f1f1f1;
+}
+
+input {
+  width: 88%;
+  align-self: center;
+  padding: 0.5% 1%;
+  border: 1px solid #ccc;
+}
+
+label {
+  align-self: center;
+}
+
+button {
+  color: white;
+  background-color: #80bfff;
+  padding: 2.5% 5%;
+  margin: 2.5% 5%;
+  width: 90%;
+  align-self: center;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.smessage, .message {
+  min-height: 20px;
+  padding: 5px;
+  align-self: center;
+}
+
+.smessage {
+  cursor: pointer;
+  color: #608FBF;
+}
+
+.message {
+  color: #FF9F99;
+}
+
+#logo {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+}

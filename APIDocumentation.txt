@@ -212,7 +212,7 @@ header("Access-Control-Allow-Origin: *");
 11 GET, get all meals for range, api/calendar.php
     {
       method: 'GET'
-      type: 'add'
+      accountID: string
       startDate: Date
       endDate: DAte
     }

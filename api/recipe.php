@@ -131,12 +131,13 @@ SQL;
 
                 $stmt = $conn->prepare($query);
                 $stmt->execute([$_GET['recipeID'], $_GET['accountID']]);
-                $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                $recipe = $stmt->fetchAll(PDO::FETCH_ASSOC)[0];
                 $recipe_query = <<<SQL
 SELECT i.name as name, recipe_ingredient.id as ingredientID, amount, unit FROM recipe_ingredient 
     left join ingredient i on recipe_ingredient.ingredient_id = i.id 
     WHERE recipe_id = ?;
 SQL;
+
                 $stmt = $conn->prepare($recipe_query);
                 $stmt->execute([$_GET['recipeID']]);
                 $ingredients = $stmt->fetchAll(PDO::FETCH_ASSOC);

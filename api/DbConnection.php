@@ -10,7 +10,6 @@ class DbConnection
 
     /**
      * DbConnection constructor.
-     * @param $PDO
      */
     public function __construct()
     {
